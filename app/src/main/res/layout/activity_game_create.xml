@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controllers.GameCreateActivity">
+
+    <TextView
+        android:id="@+id/game_create_coursename_tv"
+        style="@style/DiscotronTVStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxEms="8"
+        android:singleLine="false"
+        android:text="Course: "
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/game_create_playernames_tv"
+        app:layout_constraintStart_toStartOf="@+id/game_create_gamename_tv"
+        app:layout_constraintTop_toBottomOf="@+id/game_create_gamename_tv" />
+
+    <TextView
+        android:id="@+id/game_create_gamename_tv"
+        style="@style/DiscotronTVStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game Name:"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/game_create_coursename_tv"
+        app:layout_constraintStart_toStartOf="@+id/guideline19"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/game_create_playernames_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxEms="8"
+        android:singleLine="false"
+        android:text="Players:"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline18"
+        app:layout_constraintStart_toStartOf="@+id/game_create_coursename_tv"
+        app:layout_constraintTop_toBottomOf="@+id/game_create_coursename_tv" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.58" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <Button
+        android:id="@+id/game_create_selectcourse_btn"
+        style="@style/DiscotronBTNStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        app:layout_constraintBottom_toBottomOf="@+id/game_create_coursename_tv"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintTop_toTopOf="@+id/game_create_coursename_tv" />
+
+    <Button
+        android:id="@+id/game_create_selectplayers_btn"
+        style="@style/DiscotronBTNStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        app:layout_constraintBottom_toBottomOf="@+id/game_create_playernames_tv"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintTop_toTopOf="@+id/game_create_playernames_tv" />
+
+    <Button
+        android:id="@+id/game_create_finish_btn"
+        style="@style/DiscotronBTNStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintStart_toStartOf="@+id/guideline19"
+        app:layout_constraintTop_toTopOf="@+id/guideline18" />
+
+    <EditText
+        android:id="@+id/game_create_gamename_et"
+        style="@style/DiscotronETStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="8"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/game_create_gamename_tv"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintTop_toTopOf="@+id/game_create_gamename_tv" />
+</androidx.constraintlayout.widget.ConstraintLayout>

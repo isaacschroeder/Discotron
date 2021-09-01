@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="isaacjschroeder.discotron">
+
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Discotron">
+        <activity android:name=".controllers.GameDetailsActivity"></activity>
+        <activity android:name=".controllers.GameCreateActivity" />
+        <activity android:name=".controllers.GamePlayActivity" />
+        <activity android:name=".controllers.GameListActivity" />
+        <activity android:name=".controllers.CourseDetailsActivity" />
+        <activity android:name=".controllers.CourseAddActivity" />
+        <activity android:name=".controllers.CourseListActivity" />
+        <activity android:name=".controllers.PlayerDetailsActivity" />
+        <activity android:name=".controllers.PlayerAddActivity" />
+        <activity android:name=".controllers.PlayersListActivity" />
+        <activity android:name=".controllers.MainMenuActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

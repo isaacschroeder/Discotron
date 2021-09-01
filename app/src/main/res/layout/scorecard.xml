@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="77dp"
+        android:layout_height="159dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#7A7A7A">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="#EA80FC"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:shadowColor="#FFFFFF"
+                    android:singleLine="true"
+                    android:text="2"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="#FF80AB" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#7A7A7A">
+
+                <TextView
+                    android:id="@+id/textView84"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="#EA80FC"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:shadowColor="#FFFFFF"
+                    android:singleLine="true"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="#FF80AB" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="#EA80FC"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:shadowColor="#FFFFFF"
+                android:singleLine="true"
+                android:text="3"
+                android:textColor="@color/black"
+                android:textColorHighlight="#FF80AB" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="#EA80FC"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:shadowColor="#FFFFFF"
+                android:singleLine="true"
+                android:text="4"
+                android:textColor="@color/black"
+                android:textColorHighlight="#FF80AB" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:background="#BF2626"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#EA80FC"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:shadowColor="#FFFFFF"
+                android:singleLine="true"
+                android:text="Par"
+                android:textColor="@color/black"
+                android:textColorHighlight="#92E649" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#EA80FC"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:shadowColor="#FFFFFF"
+                android:singleLine="true"
+                android:text="1"
+                android:textColor="@color/black"
+                android:textColorHighlight="#FF80AB" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="#EA80FC"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:shadowColor="#FFFFFF"
+                android:singleLine="true"
+                android:text="1"
+                android:textColor="@color/black"
+                android:textColorHighlight="#FF80AB" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="#EA80FC"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:shadowColor="#FFFFFF"
+                android:singleLine="true"
+                android:text="1"
+                android:textColor="@color/black"
+                android:textColorHighlight="#FF80AB" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="341dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="114dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="this is testdingo by the way"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_player_list_action_sort"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="Sort"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/menu_player_list_action_sort_az"
+                android:title="A-Z" />
+            <item
+                android:id="@+id/menu_player_list_action_sort_za"
+                android:title="Z-A" />
+            <item
+                android:id="@+id/menu_player_list_action_sort_gp"
+                android:title="Games Played" />
+        </menu>
+    </item>
+</menu>

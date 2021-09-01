@@ -1,0 +1,232 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:5992719496224401960",
+      "lastPropertyId": "3:3516198711305015225",
+      "name": "CourseModel",
+      "properties": [
+        {
+          "id": "1:1387073773714694747",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8813101546403461895",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:3516198711305015225",
+          "name": "gamesPlayed",
+          "type": 5,
+          "flags": 4
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:4157080827168182771",
+      "lastPropertyId": "4:4137136016104970310",
+      "name": "GameModel",
+      "properties": [
+        {
+          "id": "1:7259246607191666972",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7213127722236978428",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:6710380119095757596",
+          "name": "date",
+          "type": 9
+        },
+        {
+          "id": "4:4137136016104970310",
+          "name": "courseId",
+          "indexId": "1:7462162898576761810",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "CourseModel"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:7541019069093792957",
+      "lastPropertyId": "4:465318556061062193",
+      "name": "HoleModel",
+      "properties": [
+        {
+          "id": "1:4928228850106592879",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2272323088802377365",
+          "name": "number",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "3:2702681288158013575",
+          "name": "par",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "4:465318556061062193",
+          "name": "courseId",
+          "indexId": "2:4990763779117534497",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "CourseModel"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:3088881404735143005",
+      "lastPropertyId": "4:3075504924949341834",
+      "name": "MatchParModel",
+      "properties": [
+        {
+          "id": "1:954859305797702134",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8262120992490941976",
+          "name": "number",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "3:704612315237285244",
+          "name": "par",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "4:3075504924949341834",
+          "name": "gameId",
+          "indexId": "3:2500352909333992541",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "GameModel"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:5633310804726101683",
+      "lastPropertyId": "3:4089729559904334290",
+      "name": "PlayerModel",
+      "properties": [
+        {
+          "id": "1:1438352727017191475",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2469450645881633799",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:4089729559904334290",
+          "name": "gamesPlayed",
+          "type": 5,
+          "flags": 4
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:2249647725364502932",
+      "lastPropertyId": "3:5237498335209028996",
+      "name": "ScoreCardModel",
+      "properties": [
+        {
+          "id": "1:5848158625906942356",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:332054424419480198",
+          "name": "gameId",
+          "indexId": "4:6060783725064238468",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "GameModel"
+        },
+        {
+          "id": "3:5237498335209028996",
+          "name": "playerId",
+          "indexId": "5:2541302505965595188",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "PlayerModel"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:5307995737008709377",
+      "lastPropertyId": "4:4280633744535857357",
+      "name": "ScoreModel",
+      "properties": [
+        {
+          "id": "1:1685377941534917447",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4780061024012435824",
+          "name": "holeNumber",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "3:571862013620314401",
+          "name": "score",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "4:4280633744535857357",
+          "name": "scoreCardId",
+          "indexId": "6:6711190507414845548",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "ScoreCardModel"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "7:5307995737008709377",
+  "lastIndexId": "6:6711190507414845548",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
