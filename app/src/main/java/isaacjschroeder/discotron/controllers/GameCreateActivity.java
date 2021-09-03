@@ -132,7 +132,7 @@ public class GameCreateActivity extends AppCompatActivity {
 
                     games.put(game);        //finally, put the game in the db - does this add everything else?
 
-                    //For now, send back to main menu
+                    //CHANGE: For now, send back to main menu, need to also update game in progress bit here********
                     setResult(RESULT_OK);
                     finish();
                 }
