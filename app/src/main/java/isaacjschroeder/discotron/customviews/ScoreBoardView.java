@@ -63,7 +63,7 @@ public class ScoreBoardView extends LinearLayout {
     {
         if (scoreCard == 0) //then editing pars
         {
-            parScoreCardView.updateText(ScoreCardView.HOLE_PAR_COLUMN, holeNumber, score);
+            parScoreCardView.updateParText(holeNumber, score);
         }
         else {
             //for player score

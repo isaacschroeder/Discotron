@@ -10,7 +10,9 @@
     <color name="green_dark_epic">#ff669900</color>
     <color name="brown_light_epic">#A36F47</color>
     <color name="brown_dark_epic">#9A490B</color>
-    <color name="selected">#35DFD1</color>
+
+    <color name="list_selected">#35DFD1</color>
+    <color name="list_notselected">#EDEDED</color>
 
     <color name="ace">#BA68C8</color>
     <color name="albatross_or_better">#F06292</color>

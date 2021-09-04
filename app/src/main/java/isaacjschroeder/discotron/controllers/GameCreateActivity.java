@@ -175,7 +175,15 @@ public class GameCreateActivity extends AppCompatActivity {
             Query<GameModel> query = games.query().equal(GameModel_.name, gameName).build(); //Query all courses with entered name
             List<GameModel> matchingNameList = query.find();
             if (matchingNameList.isEmpty()) { //otherwise, no matching names allowed
-                return true;
+                if (course != null) {
+                    if (players != null && !players.isEmpty()) {
+                        return true;
+                    } else {
+                        Toast.makeText(this, "You have to add players to your game fool!", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(this, "You have choose a course for your game fool!", Toast.LENGTH_LONG).show();
+                }
             } else {
                 Toast.makeText(this, "There is already a course using that name fool!", Toast.LENGTH_LONG).show();
             }

@@ -62,7 +62,6 @@ public class PlayersListActivity extends AppCompatActivity {
     //only used if activity was started to return multiple players
     private List<Long> playerIDs;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +99,7 @@ public class PlayersListActivity extends AppCompatActivity {
             returnSelectedBTN.setEnabled(false);
 
             setTitle("Players");
-            rvAdapter = new PlayerRVAdapter(playersBox.getAll(), new PlayerRVAdapter.OnPlayerClickListener() {
+            rvAdapter = new PlayerRVAdapter(this, playersBox.getAll(), new PlayerRVAdapter.OnPlayerClickListener() {
                 @Override
                 public void onPlayerClick(View itemView, int position) {
                     //Launch view player details activity
@@ -115,31 +114,31 @@ public class PlayersListActivity extends AppCompatActivity {
 
             playerIDs = new ArrayList<>();
 
-            rvAdapter = new PlayerRVAdapter(playersBox.getAll(), new PlayerRVAdapter.OnPlayerClickListener() {
+            rvAdapter = new PlayerRVAdapter(this, playersBox.getAll(), new PlayerRVAdapter.OnPlayerClickListener() {
                 @Override
                 public void onPlayerClick(View itemView, int position) {
-                    //Toggle whether the player is selected or not for returning, adding or removing them from the id list
-                    TextView playerNameTV = itemView.findViewById(R.id.rvah_player_name_tv);
-
-                    //If the player is not selected currently, select them, highlighting text and adding them to the player ids list
+                    //SELECT TEST
                     long playerID = rvAdapter.getPlayerId(position);
                     if (!playerIDsContainID(playerID)) {
                         //Select a max of 10 players
                         if (playerIDs.size() < MAX_SELECTABLE_PLAYERS) {
-                            playerNameTV.setTextColor(getResources().getColor(R.color.selected));
                             playerIDs.add(playerID);
                         }
                         else {
-                            Toast.makeText(getParent(), "You can select a max of 10 players fool!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "You can select a max of 10 players fool!", Toast.LENGTH_LONG).show();
                         }
                     }
                     //If the player is selected, remove them from the selected player ids list
                     else {
-                        playerNameTV.setTextColor(getResources().getColor(R.color.black));
                         playerIDs.remove(playerID);
                     }
+
+                    rvAdapter.notifyDataSetChanged();       //let the adapter know it needs to refresh bc selections have been made
                 }
             });
+
+            rvAdapter.setPlayersSelectedList(playerIDs);    //give a reference of the selected players list to the adapter so it can correctly color selected views when refreshing
+
 
             returnSelectedBTN.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -164,7 +163,7 @@ public class PlayersListActivity extends AppCompatActivity {
             returnSelectedBTN.setEnabled(false);
 
             setTitle("Select Player");
-            rvAdapter = new PlayerRVAdapter(playersBox.getAll(), new PlayerRVAdapter.OnPlayerClickListener() {
+            rvAdapter = new PlayerRVAdapter(this, playersBox.getAll(), new PlayerRVAdapter.OnPlayerClickListener() {
                 @Override
                 public void onPlayerClick(View itemView, int position) {
                     //Finish activity, returning the single player id
@@ -219,6 +218,9 @@ public class PlayersListActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK)
         {
             updateSortedList();
+            if (playerIDs != null) {
+                playerIDs.clear();
+            }
         }
     }
 

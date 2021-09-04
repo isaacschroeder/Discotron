@@ -35,16 +35,21 @@ public class ScoreCardView extends LinearLayout {
     }
 
 
-    //make sure color rules apply
-    public void updateText(int columnType, int holeNumber, int score) {
-        if (columnType == HOLE_PAR_COLUMN)
-        {
-            scoreTVs.get(holeNumber).setText(String.valueOf(score));
-        }
-        else{
-            //apply color rules
-        }
+    public void updateParText(int holeNumber, int par) {
+        scoreTVs.get(holeNumber).setText(String.valueOf(par));
     }
+
+    //if default par != match par, then update text
+    public void updateMatchParText(int holeNumber, int defaultPar, int matchPar) {
+        if (defaultPar != matchPar)
+            scoreTVs.get(holeNumber).setText(String.valueOf(matchPar) + " (" + String.valueOf(defaultPar) + ")");
+        else
+            scoreTVs.get(holeNumber).setText(String.valueOf(defaultPar));
+    }
+
+
+    //make sure color rules apply
+    //asdfasdfjasdlkfjdsalkfj
 
 
     //CHANGE ORIENTATION?
@@ -87,7 +92,7 @@ public class ScoreCardView extends LinearLayout {
                     score.setText(String.valueOf(matchPar) + " (" + String.valueOf(defaultPar) + ")");
                 }
                 else {
-                    score.setText(String.valueOf(matchPar));
+                    score.setText(String.valueOf(defaultPar));
                 }
             }
             else {                                                              //then is a player scorecard
