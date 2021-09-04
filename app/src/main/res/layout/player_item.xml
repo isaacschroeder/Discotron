@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@color/brown_light_epic"
+    android:background="@color/list_notselected"
     android:orientation="vertical">
 
     <TextView
