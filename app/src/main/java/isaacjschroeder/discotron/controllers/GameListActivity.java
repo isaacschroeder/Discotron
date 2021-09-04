@@ -1,11 +1,13 @@
 package isaacjschroeder.discotron.controllers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import io.objectbox.Box;
@@ -46,6 +48,9 @@ public class GameListActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Get box for games
+        gameBox = ObjectBox.get().boxFor(GameModel.class);
+
         //Setup RecyclerView
         rv = findViewById(R.id.game_list_rv);
         rv.setLayoutManager(new LinearLayoutManager(GameListActivity.this));
@@ -82,6 +87,17 @@ public class GameListActivity extends AppCompatActivity {
         rv.setAdapter(rvAdapter);
 
         updateSortedList();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void updateSortedList() {

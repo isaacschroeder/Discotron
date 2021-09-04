@@ -73,6 +73,15 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        gamesBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainMenuActivity.this, GameListActivity.class);
+                i.putExtra(GameListActivity.GAME_LIST_USE_EXTRA, GameListActivity.GAME_LIST_USE_VIEW_DETAILS);   //start list activity for browsing game details
+                startActivity(i);
+            }
+        });
     }
 
 
