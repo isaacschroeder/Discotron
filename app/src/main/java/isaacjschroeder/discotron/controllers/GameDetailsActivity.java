@@ -1,9 +1,11 @@
 package isaacjschroeder.discotron.controllers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
@@ -42,12 +44,23 @@ public class GameDetailsActivity extends AppCompatActivity {
         playerNamesTV = findViewById(R.id.game_details_playernames_tv);
         hscroll = findViewById(R.id.game_details_scoreboard_hscroll);
 
-        scoreBoard = new ScoreBoardView(this, game.scoreCards, game.course.getTarget());
+        scoreBoard = new ScoreBoardView(this, game.scoreCards, game.course.getTarget(), game);
         hscroll.addView(scoreBoard);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -56,7 +56,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         //Attempt at scorecard shenanigans
         vscroll = findViewById(R.id.course_details_vscroll);
 
-        defaultParsSBV = new ScoreBoardView(this, null, c);
+        defaultParsSBV = new ScoreBoardView(this, c);
         vscroll.addView(defaultParsSBV);
     }
 
@@ -105,7 +105,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
             //delete and remake scoreboard view to show edits
             vscroll.removeView(defaultParsSBV);
-            defaultParsSBV = new ScoreBoardView(this, null, c);
+            defaultParsSBV = new ScoreBoardView(this, c);
             vscroll.addView(defaultParsSBV);
         }
         editResult = resultCode;

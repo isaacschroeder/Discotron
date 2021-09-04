@@ -37,5 +37,14 @@ public class GameModel {
 
     public String getDate() { return date; }
     public void setDate(String date) { this.date = date; }
+
+    //to get specific match par based on its hole number
+    public MatchParModel getMatchPar(int number) {
+        for (MatchParModel matchPar : matchPars) {
+            if (matchPar.getNumber() == number)
+                return matchPar;
+        }
+        return null;
+    }
 }
 

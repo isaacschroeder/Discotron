@@ -169,7 +169,7 @@ public class CourseAddActivity extends AppCompatActivity {
                         course = new CourseModel();
                         for (int x = 1; x <= holeCount; x++)
                             course.holes.add(new HoleModel(x, INITIAL_PAR_VALUE));                           //start par of every hole at 3
-                        parPreviewSBV = new ScoreBoardView(setHoleCountBTN.getContext(), null, course);
+                        parPreviewSBV = new ScoreBoardView(setHoleCountBTN.getContext(), course);
                         vscroll.addView(parPreviewSBV);
 
                         //disable editing of hole count
@@ -202,7 +202,7 @@ public class CourseAddActivity extends AppCompatActivity {
             parSetNP.setValue(course.getHole(1).getPar());            //start par picker par of first hole
             holeSelectNP.setMaxValue(course.holes.size());
 
-            parPreviewSBV = new ScoreBoardView(this, null, course);
+            parPreviewSBV = new ScoreBoardView(this, course);
             vscroll.addView(parPreviewSBV);
         }
 

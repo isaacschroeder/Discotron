@@ -11,6 +11,7 @@ import java.util.List;
 
 import isaacjschroeder.discotron.R;
 import isaacjschroeder.discotron.data.CourseModel;
+import isaacjschroeder.discotron.data.GameModel;
 import isaacjschroeder.discotron.data.ScoreCardModel;
 
 
@@ -21,13 +22,16 @@ public class ScoreCardView extends LinearLayout {
 
     public static final int HOLE_NUMBER_COLUMN = 0;
     public static final int HOLE_PAR_COLUMN = 1;
-    public static final int PLAYER_SCORE_COLUMN = 2;
+    public static final int HOLE_MATCH_PAR_COLUMN = 2;
+    public static final int PLAYER_SCORE_COLUMN = 3;
 
     private final int TEXT_SIZE = 24;
 
-    public ScoreCardView(Context context, int columnType, String header, CourseModel course, ScoreCardModel playerScore) {
+    private final String SCORE_NOT_SET_SYMBOL = "~";
+
+    public ScoreCardView(Context context, int columnType, String header, CourseModel course, ScoreCardModel playerScore, GameModel game) {
         super(context);
-        init(context, columnType, header, course, playerScore);
+        init(context, columnType, header, course, playerScore, game);
     }
 
 
@@ -44,7 +48,7 @@ public class ScoreCardView extends LinearLayout {
 
 
     //CHANGE ORIENTATION?
-    private void init(Context context, int columnType , String header, CourseModel course, ScoreCardModel playerScore) {
+    private void init(Context context, int columnType , String header, CourseModel course, ScoreCardModel playerScore, GameModel game) {
         //Setup linear layout
         this.setOrientation(LinearLayout.VERTICAL);
         this.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -54,59 +58,74 @@ public class ScoreCardView extends LinearLayout {
         headerTV = new TextView(context);
         headerTV.setLayoutParams(headerTVParams);
         headerTV.setText(header);
-        headerTV.setPadding(10,10,10,10);
+        headerTV.setPadding(20,20,20,20);
         headerTV.setTextColor(getResources().getColor(R.color.black));
         headerTV.setBackgroundColor(getResources().getColor(R.color.grey));
         headerTV.setTextSize(TEXT_SIZE);
         headerTV.setSingleLine(true);
         this.addView(headerTV);
 
+        //For setting score tvs behavior in their frame layout cells
+        FrameLayout.LayoutParams scoreTVParams = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+        scoreTVParams.setMargins(10,10,10,10);
 
-        FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-
-        LinearLayout.LayoutParams scoreTVParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        scoreTVParams.setMargins(5,5,5,5);
         scoreTVs = new ArrayList<TextView>();
 
         //iterate through each hole (-1)
         for (int i = 0; i < course.holes.size(); i++) {
             TextView score = new TextView(context);
             score.setLayoutParams(scoreTVParams);
-            score.setGravity(Gravity.CENTER);
             if (columnType == HOLE_NUMBER_COLUMN)                                //just a holecount scorecard
                 score.setText(String.valueOf(i + 1));
-            else if (columnType == HOLE_PAR_COLUMN)                             //just a par scorecard *NEWFIX - was pars==null dumbhead
+            else if (columnType == HOLE_PAR_COLUMN) {                            //just a par scorecard
                 score.setText(String.valueOf(course.getHole(i + 1).getPar()));
+            }
+            else if (columnType == HOLE_MATCH_PAR_COLUMN) {                     //just a par scorecard, but has info about default par and the current match par
+                int defaultPar = course.getHole(i + 1).getPar();
+                int matchPar = game.getMatchPar(i + 1).getPar();
+                if (defaultPar != matchPar) {
+                    score.setText(String.valueOf(matchPar) + " (" + String.valueOf(defaultPar) + ")");
+                }
+                else {
+                    score.setText(String.valueOf(matchPar));
+                }
+            }
             else {                                                              //then is a player scorecard
-                //Color based on ranges
+
                 int ps = playerScore.getScore(i + 1).getScore();
-                int par = course.getHole(i + 1).getPar();
-                if (ps == 1)
-                    score.setBackgroundColor(getResources().getColor(R.color.ace));
-                else if (par - ps > 2)
-                    score.setBackgroundColor(getResources().getColor(R.color.albatross_or_better));
-                else if (par - ps == 2)
-                    score.setBackgroundColor(getResources().getColor(R.color.eagle));
-                else if (par - ps == 1)
-                    score.setBackgroundColor(getResources().getColor(R.color.birdie));
-                else if (par - ps == -1)
-                    score.setBackgroundColor(getResources().getColor(R.color.bogey));
-                else if (par - ps == -2)
-                    score.setBackgroundColor(getResources().getColor(R.color.double_bogey));
-                else if (par - ps < -2)
-                    score.setBackgroundColor(getResources().getColor(R.color.triple_bogey_or_worse));
+
+                //if score is -1, then display symbol signifying a score has not been made yet
+                if (ps == -1) {
+                    score.setText(SCORE_NOT_SET_SYMBOL);
+                }
+                else {
+                    //set player score text
+                    score.setText(String.valueOf(ps));
+
+                    //Color based on ranges
+                    int par = course.getHole(i + 1).getPar();
+                    if (ps == 1)
+                        score.setBackgroundColor(getResources().getColor(R.color.ace));
+                    else if (par - ps > 2)
+                        score.setBackgroundColor(getResources().getColor(R.color.albatross_or_better));
+                    else if (par - ps == 2)
+                        score.setBackgroundColor(getResources().getColor(R.color.eagle));
+                    else if (par - ps == 1)
+                        score.setBackgroundColor(getResources().getColor(R.color.birdie));
+                    else if (par - ps == -1)
+                        score.setBackgroundColor(getResources().getColor(R.color.bogey));
+                    else if (par - ps == -2)
+                        score.setBackgroundColor(getResources().getColor(R.color.double_bogey));
+                    else if (par - ps < -2)
+                        score.setBackgroundColor(getResources().getColor(R.color.triple_bogey_or_worse));
+                }
             }
             score.setPadding(5,5,5,5);
             score.setTextColor(getResources().getColor(R.color.black));
-            //if (i % 2 == 0)
-            //    score.setBackgroundColor(getResources().getColor(R.color.white));
-            //else
-            //    score.setBackgroundColor(getResources().getColor(R.color.grey));
             score.setTextSize(TEXT_SIZE);
             score.setSingleLine(true);
 
             FrameLayout fl = new FrameLayout(context);
-            fl.setLayoutParams(frameLayoutParams);
             if (i % 2 == 0)
                 fl.setBackgroundColor(getResources().getColor(R.color.white));
             else
@@ -117,6 +136,4 @@ public class ScoreCardView extends LinearLayout {
             scoreTVs.add(i, score);         //add to scoreTVs list
         }
     }
-
-
 }
