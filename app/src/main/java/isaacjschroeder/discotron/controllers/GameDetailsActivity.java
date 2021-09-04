@@ -44,6 +44,13 @@ public class GameDetailsActivity extends AppCompatActivity {
         playerNamesTV = findViewById(R.id.game_details_playernames_tv);
         hscroll = findViewById(R.id.game_details_scoreboard_hscroll);
 
+        gameNameTV.setText("Name: " + game.name);
+        courseNameTV.setText("Course: " + game.course.getTarget().name);
+        playerNamesTV.setText("Players:");
+        for (int x = 0; x < game.scoreCards.size(); x++) {
+            playerNamesTV.setText(playerNamesTV.getText().toString() + " " + game.scoreCards.get(x).player.getTarget().name);
+        }
+
         scoreBoard = new ScoreBoardView(this, game.scoreCards, game.course.getTarget(), game);
         hscroll.addView(scoreBoard);
     }
