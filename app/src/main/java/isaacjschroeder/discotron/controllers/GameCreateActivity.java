@@ -43,6 +43,8 @@ public class GameCreateActivity extends AppCompatActivity {
     private static final int COURSE_ID_RC = 1;
     private static final int PLAYER_IDS_RC = 2;
 
+    private static final int MAX_NAME_CHARACTERS = 16;
+
     private CourseModel course;
     private List<PlayerModel> players;
 
@@ -172,20 +174,24 @@ public class GameCreateActivity extends AppCompatActivity {
         gameName = gameNameET.getText().toString();
         //Query for players with same name!
         if (!gameName.isEmpty()) {
-            Query<GameModel> query = games.query().equal(GameModel_.name, gameName).build(); //Query all courses with entered name
-            List<GameModel> matchingNameList = query.find();
-            if (matchingNameList.isEmpty()) { //otherwise, no matching names allowed
-                if (course != null) {
-                    if (players != null && !players.isEmpty()) {
-                        return true;
+            if (gameName.length() <= MAX_NAME_CHARACTERS) {
+                Query<GameModel> query = games.query().equal(GameModel_.name, gameName).build(); //Query all courses with entered name
+                List<GameModel> matchingNameList = query.find();
+                if (matchingNameList.isEmpty()) { //otherwise, no matching names allowed
+                    if (course != null) {
+                        if (players != null && !players.isEmpty()) {
+                            return true;
+                        } else {
+                            Toast.makeText(this, "You have to add players to your game fool!", Toast.LENGTH_LONG).show();
+                        }
                     } else {
-                        Toast.makeText(this, "You have to add players to your game fool!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "You have choose a course for your game fool!", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(this, "You have choose a course for your game fool!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "There is already a course using that name fool!", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(this, "There is already a course using that name fool!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Your game name can't exceed " + MAX_NAME_CHARACTERS + " characters fool!", Toast.LENGTH_LONG).show();
             }
         } else {
             Toast.makeText(this, "The course's name can't be empty fool!", Toast.LENGTH_LONG).show();

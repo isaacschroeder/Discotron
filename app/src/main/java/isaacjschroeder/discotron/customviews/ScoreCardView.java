@@ -25,9 +25,9 @@ public class ScoreCardView extends LinearLayout {
     public static final int HOLE_MATCH_PAR_COLUMN = 2;
     public static final int PLAYER_SCORE_COLUMN = 3;
 
-    private final int TEXT_SIZE = 24;
+    private static final int TEXT_SIZE = 24;
 
-    private final String SCORE_NOT_SET_SYMBOL = "~";
+    private static final String SCORE_NOT_SET_SYMBOL = "~";
 
     public ScoreCardView(Context context, int columnType, String header, CourseModel course, ScoreCardModel playerScore, GameModel game) {
         super(context);

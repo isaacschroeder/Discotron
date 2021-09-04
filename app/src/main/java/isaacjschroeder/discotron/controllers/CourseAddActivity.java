@@ -62,6 +62,8 @@ public class CourseAddActivity extends AppCompatActivity {
     public static final int ADD_COURSE_RC = 2;
     private long editID; //for Recyclerview, not objectbox
 
+    private static final int MAX_NAME_CHARACTERS = 16;
+
 
     //NOTE: currently not implementing the ability to edit/change the holecount of a course after creation,
     //just delete course and make a new one. want to still allow changing of pars and name though
@@ -240,14 +242,18 @@ public class CourseAddActivity extends AppCompatActivity {
         courseName = courseNameET.getText().toString();
         //Query for players with same name!
         if (!courseName.isEmpty()) {
-            Query<CourseModel> query = courses.query().equal(CourseModel_.name, courseName).build(); //Query all courses with entered name
-            List<CourseModel> matchingNameList = query.find();
-            if (matchingNameList.size() == 1 && editID == matchingNameList.get(0).id) { //if editing and same name is kept
-                return true;
-            } else if (matchingNameList.isEmpty()) { //otherwise, no matching names allowed
-                return true;
+            if (courseName.length() <= MAX_NAME_CHARACTERS) {
+                Query<CourseModel> query = courses.query().equal(CourseModel_.name, courseName).build(); //Query all courses with entered name
+                List<CourseModel> matchingNameList = query.find();
+                if (matchingNameList.size() == 1 && editID == matchingNameList.get(0).id) { //if editing and same name is kept
+                    return true;
+                } else if (matchingNameList.isEmpty()) { //otherwise, no matching names allowed
+                    return true;
+                } else {
+                    Toast.makeText(this, "There is already a course using that name fool!", Toast.LENGTH_LONG).show();
+                }
             } else {
-                Toast.makeText(this, "There is already a course using that name fool!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Your course name can't exceed " + MAX_NAME_CHARACTERS + " characters fool!", Toast.LENGTH_LONG).show();
             }
         } else {
             Toast.makeText(this, "The course's name can't be empty fool!", Toast.LENGTH_LONG).show();

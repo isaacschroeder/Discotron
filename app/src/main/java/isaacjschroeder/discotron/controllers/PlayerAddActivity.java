@@ -33,6 +33,8 @@ public class PlayerAddActivity extends AppCompatActivity {
     public static final int ADD_PLAYER_RC = 2;
     private long editID; //for Recyclerview, not objectbox
 
+    private static final int MAX_NAME_CHARACTERS = 16;
+
     @Override
     public void onBackPressed() {
         setResult(RESULT_CANCELED);
@@ -110,14 +112,18 @@ public class PlayerAddActivity extends AppCompatActivity {
         newName = playerNameET.getText().toString();
         //Query for players with same name!
         if (!newName.isEmpty()) {
-            Query<PlayerModel> query = players.query().equal(PlayerModel_.name, newName).build(); //Query all players with entered name
-            List<PlayerModel> matchingNameList = query.find();
-            if (matchingNameList.size() == 1 && editID == matchingNameList.get(0).id) { //if editing and same name is kept
-                return true;
-            } else if (matchingNameList.isEmpty()) { //otherwise, no matching names allowed
-                return true;
+            if (newName.length() <= MAX_NAME_CHARACTERS) {
+                Query<PlayerModel> query = players.query().equal(PlayerModel_.name, newName).build(); //Query all players with entered name
+                List<PlayerModel> matchingNameList = query.find();
+                if (matchingNameList.size() == 1 && editID == matchingNameList.get(0).id) { //if editing and same name is kept
+                    return true;
+                } else if (matchingNameList.isEmpty()) { //otherwise, no matching names allowed
+                    return true;
+                } else {
+                    Toast.makeText(this, "There is already a player using that name fool!", Toast.LENGTH_LONG).show();
+                }
             } else {
-                Toast.makeText(this, "There is already a player using that name fool!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Your player name can't exceed " + MAX_NAME_CHARACTERS + " characters fool!", Toast.LENGTH_LONG).show();
             }
         } else {
             Toast.makeText(this, "The players name can't be empty fool!", Toast.LENGTH_LONG).show();
