@@ -52,6 +52,9 @@ public class CourseAddActivity extends AppCompatActivity {
     private int holeCount;
     //use rv to add holes? No, just number pickers for simplicity
 
+    //for fixing issue where data model updates were happening in update par button instead of finish
+    private List<Integer> changedHolePar; //index is hole number
+
 
     private static final int MAX_HOLE_COUNT = 100;
     private static final int MAX_PAR_VALUE = 10;
@@ -60,7 +63,7 @@ public class CourseAddActivity extends AppCompatActivity {
 
     public static final int EDIT_COURSE_RC = 1;
     public static final int ADD_COURSE_RC = 2;
-    private long editID; //for Recyclerview, not objectbox
+    private long editID; //for objectbox, not recyclerview
 
     private static final int MAX_NAME_CHARACTERS = 16;
 
@@ -120,7 +123,7 @@ public class CourseAddActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         editID = i.getLongExtra(ObjectBox.ID_EXTRA, ObjectBox.INVALID_ID);
-        if (editID == ObjectBox.INVALID_ID) {
+        if (editID == ObjectBox.INVALID_ID) {                               //If creating a new course
 
             setTitle("Create A New Course");
             finishBTN.setText("Create");
@@ -169,14 +172,20 @@ public class CourseAddActivity extends AppCompatActivity {
 
                         //prepare data and create par preview scoreboard based on holecount
                         course = new CourseModel();
-                        for (int x = 1; x <= holeCount; x++)
+                        for (int x = 1; x <= holeCount; x++) {
                             course.holes.add(new HoleModel(x, INITIAL_PAR_VALUE));                           //start par of every hole at 3
+                        }
                         parPreviewSBV = new ScoreBoardView(setHoleCountBTN.getContext(), course);
                         vscroll.addView(parPreviewSBV);
 
                         //disable editing of hole count
                         setHoleCountBTN.setEnabled(false);
                         courseHoleCountET.setEnabled(false); //change focusability and/or visibility too???
+
+                        //FIX FOR ISSUE WITH PAR UPDATE LOCATION
+                        changedHolePar = new ArrayList<Integer>();
+                        for (int x = 0; x < holeCount; x++)
+                            changedHolePar.add(new Integer(-1));
                     }
                     else {
                         Toast.makeText(setHoleCountBTN.getContext(), "Hole Count must be between 1 and 100 holes fool!", Toast.LENGTH_LONG).show();
@@ -206,19 +215,23 @@ public class CourseAddActivity extends AppCompatActivity {
 
             parPreviewSBV = new ScoreBoardView(this, course);
             vscroll.addView(parPreviewSBV);
+
+            //FIX FOR ISSUE WITH PAR UPDATE LOCATION
+            changedHolePar = new ArrayList<Integer>();
+            for (int x = 0; x < course.holes.size(); x++)
+                changedHolePar.add(new Integer(-1));
         }
 
 
+        //ISSUE - this should not update the par, just the preview. par should be updated upon selecting the finish button
         updateHoleParBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HoleModel h = course.getHole(holeSelectNP.getValue());
-
-                //testdingo; does the modified hole need to be put? YES IT DOES, in addition to the course itself!!!
-                h.setPar(parSetNP.getValue());
-                ObjectBox.get().boxFor(HoleModel.class).put(h);
-
+                //update preview, but don't put changes here, put in finish
                 parPreviewSBV.updateParEntry(holeSelectNP.getValue() - 1, parSetNP.getValue());
+
+                //Quick fix for ISSUE - store in ordered list and use ordered list to update pars in finish button click listener
+                changedHolePar.set(holeSelectNP.getValue() - 1, new Integer(parSetNP.getValue()));
             }
         });
 
@@ -227,6 +240,16 @@ public class CourseAddActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //if no issues with new course entry, add to db and return to previous activity
                 if (testCourseFields()) {
+
+                    //update hole pars that were changed
+                    for (int i = 0; i < changedHolePar.size(); i++) {
+                        if (changedHolePar.get(i).intValue() != -1) {
+                            HoleModel h = course.getHole(i + 1);
+                            h.setPar(changedHolePar.get(i).intValue());
+                            ObjectBox.get().boxFor(HoleModel.class).put(h);
+                        }
+                    }
+
                     course.name = courseName;
                     courses.put(course);
                     setResult(RESULT_OK);
