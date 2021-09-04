@@ -59,19 +59,24 @@ public class ScoreBoardView extends LinearLayout {
     }
 
 
-    public void updateScoreEntry(int scoreCard, int holeNumber, int score)
+    public void updateScoreEntry(long playerID, int holeNumber, int par, int score)
     {
-        if (scoreCard == 0) //then editing pars
-        {
-            parScoreCardView.updateParText(holeNumber, score);
-        }
-        else {
-            //for player score
+        for (int i = 0; i < playerScoreCardViews.size(); i++) {
+            if (playerScoreCardViews.get(i).getPlayerID() == playerID) {
+                playerScoreCardViews.get(i).updatePlayerScoreText(holeNumber, par, score);
+                return;
+            }
         }
     }
 
-    //add player?
+    public void updateParEntry(int holeNumber, int par) {
+        parScoreCardView.updateParText(holeNumber, par);
+    }
+
+    public void updateMatchParEntry(int holeNumber, int defaultPar, int matchPar) {
+        parScoreCardView.updateMatchParText(holeNumber, defaultPar, matchPar);
+    }
+
+    //add player, should probably just remake the whole view, but ideally could remove or add columns
     //if holecount changes, can probly just delete subviews and reform?
-
-
 }

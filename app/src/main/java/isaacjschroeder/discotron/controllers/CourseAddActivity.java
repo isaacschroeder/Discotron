@@ -218,7 +218,7 @@ public class CourseAddActivity extends AppCompatActivity {
                 h.setPar(parSetNP.getValue());
                 ObjectBox.get().boxFor(HoleModel.class).put(h);
 
-                parPreviewSBV.updateScoreEntry(0, holeSelectNP.getValue() - 1, parSetNP.getValue());
+                parPreviewSBV.updateParEntry(holeSelectNP.getValue() - 1, parSetNP.getValue());
             }
         });
 

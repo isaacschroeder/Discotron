@@ -20,6 +20,8 @@ public class ScoreCardView extends LinearLayout {
     private TextView headerTV;
     private List<TextView> scoreTVs;
 
+    private long playerID;                             //bad fix******* -1 if not a player scorecard should have different classes for types of scorecard columns
+
     public static final int HOLE_NUMBER_COLUMN = 0;
     public static final int HOLE_PAR_COLUMN = 1;
     public static final int HOLE_MATCH_PAR_COLUMN = 2;
@@ -34,6 +36,7 @@ public class ScoreCardView extends LinearLayout {
         init(context, columnType, header, course, playerScore, game);
     }
 
+    public long getPlayerID() {return playerID;}              //BAD FIX FOR IDENTIFYING PLAYER COLUMNS
 
     public void updateParText(int holeNumber, int par) {
         scoreTVs.get(holeNumber).setText(String.valueOf(par));
@@ -47,13 +50,30 @@ public class ScoreCardView extends LinearLayout {
             scoreTVs.get(holeNumber).setText(String.valueOf(defaultPar));
     }
 
-
     //make sure color rules apply
-    //asdfasdfjasdlkfjdsalkfj
+    public void updatePlayerScoreText(int holeNumber, int par, int score) {
+        if (score == -1) {
+            scoreTVs.get(holeNumber).setText(SCORE_NOT_SET_SYMBOL);
+        }
+        else {
+            //set player score text
+            scoreTVs.get(holeNumber).setText(String.valueOf(score));
+            //Color based on ranges
+            applyColorRulesToScore(score, par, scoreTVs.get(holeNumber));
+        }
+    }
 
 
     //CHANGE ORIENTATION?
     private void init(Context context, int columnType , String header, CourseModel course, ScoreCardModel playerScore, GameModel game) {
+
+        //BAD FIX FOR IDENTIFYING PLAYER COLUMNS
+        if (columnType == PLAYER_SCORE_COLUMN)
+            playerID = playerScore.player.getTargetId();
+        else
+            playerID = -1;
+        //BAD FIX FOR IDENTIFYING PLAYER COLUMNS
+
         //Setup linear layout
         this.setOrientation(LinearLayout.VERTICAL);
         this.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -96,9 +116,7 @@ public class ScoreCardView extends LinearLayout {
                 }
             }
             else {                                                              //then is a player scorecard
-
                 int ps = playerScore.getScore(i + 1).getScore();
-
                 //if score is -1, then display symbol signifying a score has not been made yet
                 if (ps == -1) {
                     score.setText(SCORE_NOT_SET_SYMBOL);
@@ -106,23 +124,9 @@ public class ScoreCardView extends LinearLayout {
                 else {
                     //set player score text
                     score.setText(String.valueOf(ps));
-
                     //Color based on ranges
-                    int par = course.getHole(i + 1).getPar();
-                    if (ps == 1)
-                        score.setBackgroundColor(getResources().getColor(R.color.ace));
-                    else if (par - ps > 2)
-                        score.setBackgroundColor(getResources().getColor(R.color.albatross_or_better));
-                    else if (par - ps == 2)
-                        score.setBackgroundColor(getResources().getColor(R.color.eagle));
-                    else if (par - ps == 1)
-                        score.setBackgroundColor(getResources().getColor(R.color.birdie));
-                    else if (par - ps == -1)
-                        score.setBackgroundColor(getResources().getColor(R.color.bogey));
-                    else if (par - ps == -2)
-                        score.setBackgroundColor(getResources().getColor(R.color.double_bogey));
-                    else if (par - ps < -2)
-                        score.setBackgroundColor(getResources().getColor(R.color.triple_bogey_or_worse));
+                    int par = game.getMatchPar(i + 1).getPar();
+                    applyColorRulesToScore(ps, par, score);
                 }
             }
             score.setPadding(5,5,5,5);
@@ -140,5 +144,22 @@ public class ScoreCardView extends LinearLayout {
             this.addView(fl);            //add to linear layout
             scoreTVs.add(i, score);         //add to scoreTVs list
         }
+    }
+
+    public void applyColorRulesToScore(int score, int matchPar, TextView scoreTV) {
+        if (score == 1)
+            scoreTV.setBackgroundColor(getResources().getColor(R.color.ace));
+        else if (matchPar - score > 2)
+            scoreTV.setBackgroundColor(getResources().getColor(R.color.albatross_or_better));
+        else if (matchPar - score == 2)
+            scoreTV.setBackgroundColor(getResources().getColor(R.color.eagle));
+        else if (matchPar - score == 1)
+            scoreTV.setBackgroundColor(getResources().getColor(R.color.birdie));
+        else if (matchPar - score == -1)
+            scoreTV.setBackgroundColor(getResources().getColor(R.color.bogey));
+        else if (matchPar - score == -2)
+            scoreTV.setBackgroundColor(getResources().getColor(R.color.double_bogey));
+        else if (matchPar - score < -2)
+            scoreTV.setBackgroundColor(getResources().getColor(R.color.triple_bogey_or_worse));
     }
 }
