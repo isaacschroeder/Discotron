@@ -51,7 +51,7 @@ public class GameDetailsActivity extends AppCompatActivity {
             playerNamesTV.setText(playerNamesTV.getText().toString() + " " + game.scoreCards.get(x).player.getTarget().name);
         }
 
-        scoreBoard = new ScoreBoardView(this, game.scoreCards, game.course.getTarget(), game);
+        scoreBoard = new ScoreBoardView(this, game);
         hscroll.addView(scoreBoard);
     }
 

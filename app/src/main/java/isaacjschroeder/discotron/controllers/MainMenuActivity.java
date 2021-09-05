@@ -1,6 +1,7 @@
 package isaacjschroeder.discotron.controllers;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -24,6 +25,8 @@ public class MainMenuActivity extends AppCompatActivity {
     private Button coursesBTN;
     private Button statsBTN;
 
+    private static final int GAME_CREATE_RC = 0;
+
     private ImageView iv;
 
     @Override
@@ -40,7 +43,7 @@ public class MainMenuActivity extends AppCompatActivity {
         iv =                findViewById(R.id.main_iv);
 
         //Set correct text on newOrContinueBTN
-        if (SharedPreferencesManager.read(SharedPreferencesManager.GAME_IN_PROGRESS, false))
+        if (SharedPreferencesManager.read(SharedPreferencesManager.GAME_IN_PROGRESS_ID, ObjectBox.INVALID_ID) != ObjectBox.INVALID_ID)
             newOrContinueBTN.setText("Continue Game");
         else
             newOrContinueBTN.setText("New Game");
@@ -69,8 +72,16 @@ public class MainMenuActivity extends AppCompatActivity {
         newOrContinueBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainMenuActivity.this, GameCreateActivity.class);
-                startActivity(i);
+                if (SharedPreferencesManager.read(SharedPreferencesManager.GAME_IN_PROGRESS_ID, ObjectBox.INVALID_ID) == ObjectBox.INVALID_ID) {
+                    //Make a new game
+                    Intent i = new Intent(MainMenuActivity.this, GameCreateActivity.class);
+                    startActivityForResult(i, GAME_CREATE_RC);
+                } else {
+                    //Continue a current game
+                    Intent i = new Intent(MainMenuActivity.this, GamePlayActivity.class);
+                    i.putExtra(ObjectBox.ID_EXTRA, SharedPreferencesManager.read(SharedPreferencesManager.GAME_IN_PROGRESS_ID, ObjectBox.INVALID_ID));
+                    startActivity(i);
+                }
             }
         });
 
@@ -100,9 +111,40 @@ public class MainMenuActivity extends AppCompatActivity {
                 ObjectBox.get().close();
                 ObjectBox.get().deleteAllFiles();
                 ObjectBox.init(getApplicationContext());
+
+                //ALSO NEED TO CLEAR SHAREDPREFS!!! no game should be in progress after this
+                SharedPreferencesManager.clearData();
+
+                //NEED TO RESET CONTINUE GAME BUTTON TO NEW GAME BC THERE WILL BE NO GAME TO CONTINUE AFTER THIS
+                newOrContinueBTN.setText("New Game");
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (SharedPreferencesManager.read(SharedPreferencesManager.GAME_IN_PROGRESS_ID, ObjectBox.INVALID_ID) != ObjectBox.INVALID_ID)
+            newOrContinueBTN.setText("Continue Game");
+        else
+            newOrContinueBTN.setText("New Game");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GAME_CREATE_RC && resultCode == RESULT_OK) {
+            long id = data.getLongExtra(ObjectBox.ID_EXTRA, ObjectBox.INVALID_ID);
+
+            //Launch newly created game passed back from game create activity
+            Intent i = new Intent(MainMenuActivity.this, GamePlayActivity.class);
+            i.putExtra(ObjectBox.ID_EXTRA, id);
+            startActivity(i);
         }
     }
 }

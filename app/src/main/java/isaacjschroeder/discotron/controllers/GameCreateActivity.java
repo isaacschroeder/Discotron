@@ -20,6 +20,7 @@ import io.objectbox.Box;
 import io.objectbox.query.Query;
 import isaacjschroeder.discotron.ObjectBox;
 import isaacjschroeder.discotron.R;
+import isaacjschroeder.discotron.SharedPreferencesManager;
 import isaacjschroeder.discotron.data.CourseModel;
 import isaacjschroeder.discotron.data.CourseModel_;
 import isaacjschroeder.discotron.data.GameModel;
@@ -62,6 +63,12 @@ public class GameCreateActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
     }
 
     @Override
@@ -134,8 +141,11 @@ public class GameCreateActivity extends AppCompatActivity {
 
                     games.put(game);        //finally, put the game in the db - does this add everything else?
 
-                    //CHANGE: For now, send back to main menu, need to also update game in progress bit here********
-                    setResult(RESULT_OK);
+                    //Need to launch game from main menu, so return the game id and shiz to the main menu
+                    SharedPreferencesManager.write(SharedPreferencesManager.GAME_IN_PROGRESS_ID, game.id);
+                    Intent passBackID = new Intent();
+                    passBackID.putExtra(ObjectBox.ID_EXTRA, game.id);
+                    setResult(RESULT_OK, passBackID);
                     finish();
                 }
             }
@@ -188,13 +198,13 @@ public class GameCreateActivity extends AppCompatActivity {
                         Toast.makeText(this, "You have choose a course for your game fool!", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(this, "There is already a course using that name fool!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "There is already a game using that name fool!", Toast.LENGTH_LONG).show();
                 }
             } else {
                 Toast.makeText(this, "Your game name can't exceed " + MAX_NAME_CHARACTERS + " characters fool!", Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(this, "The course's name can't be empty fool!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "The game's name can't be empty fool!", Toast.LENGTH_LONG).show();
         }
         return false;
     }

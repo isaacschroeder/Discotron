@@ -18,9 +18,9 @@ public class ScoreBoardView extends LinearLayout {
 
 
     //Constructor for game info scoreboard
-    public ScoreBoardView(Context context, List<ScoreCardModel> scoreCards, CourseModel course, GameModel game) {
+    public ScoreBoardView(Context context, GameModel game) {   //List<ScoreCardModel> scoreCards, CourseModel course,
         super(context);
-        init(context, scoreCards, course, game);
+        init(context, game.scoreCards, game.course.getTarget(), game);
     }
 
     //Constructor for course info scoreboard
