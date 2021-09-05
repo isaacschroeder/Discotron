@@ -14,6 +14,8 @@
     <color name="list_selected">#35DFD1</color>
     <color name="list_notselected">#EDEDED</color>
 
+    <color name="button_alt">#00BCD4</color>
+
     <color name="ace">#BA68C8</color>
     <color name="albatross_or_better">#F06292</color>
     <color name="eagle">#4DD0E1</color>

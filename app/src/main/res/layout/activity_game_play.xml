@@ -11,40 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.64" />
+        app:layout_constraintGuide_percent="0.62" />
 
-    <TextView
-        android:id="@+id/game_play_holeselect_tv"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score for hole"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline28" />
-
-    <Button
-        android:id="@+id/game_play_enterscore_btn"
-        style="@style/DiscotronBTNStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter"
-        app:layout_constraintBottom_toBottomOf="@+id/game_play_holeselect_tv"
-        app:layout_constraintEnd_toStartOf="@+id/game_play_holeselect_tv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/game_play_holeselect_tv" />
-
-    <NumberPicker
-        android:id="@+id/game_play_holeselect_np"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/game_play_holeselect_tv"
-        app:layout_constraintTop_toTopOf="@+id/guideline28" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
@@ -52,6 +26,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.05109489" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline30"
@@ -67,12 +48,132 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline28"
         app:layout_constraintEnd_toStartOf="@+id/guideline30"
         app:layout_constraintStart_toStartOf="@+id/guideline29"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="@+id/guideline23">
 
         <HorizontalScrollView
             android:id="@+id/game_play_scoreboard_hscroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>
+
+    <TextView
+        android:id="@+id/game_play_holeinfo_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hole #\nPar #"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/game_play_editmatchpar_btn"
+        app:layout_constraintEnd_toStartOf="@+id/game_play_editmatchpar_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/game_play_editmatchpar_btn" />
+
+    <TextView
+        android:id="@+id/game_play_scoreset_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="#"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/game_play_scoreminus_btn2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/game_play_scoreminus_btn"
+        tools:layout_editor_absoluteY="499dp" />
+
+    <ImageButton
+        android:id="@+id/game_play_editmatchpar_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/green_light_epic"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/game_play_switchplayerleft_btn"
+        app:layout_constraintEnd_toStartOf="@+id/game_play_switchplayerleft_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/game_play_holeinfo_tv"
+        app:layout_constraintTop_toTopOf="@+id/game_play_switchplayerleft_btn"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <ImageButton
+        android:id="@+id/game_play_switchplayerleft_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/green_light_epic"
+        android:scaleType="centerInside"
+        android:tint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/game_play_scoreset_btn"
+        app:layout_constraintEnd_toStartOf="@+id/game_play_scoreset_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/game_play_editmatchpar_btn"
+        app:layout_constraintTop_toTopOf="@+id/game_play_scoreset_btn"
+        app:srcCompat="@drawable/arrow_left" />
+
+    <ImageButton
+        android:id="@+id/game_play_scoreminus_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/green_light_epic"
+        android:padding="15dp"
+        android:scaleType="centerInside"
+        android:tint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/game_play_scoreset_tv"
+        app:layout_constraintEnd_toStartOf="@+id/game_play_scoreset_tv"
+        app:layout_constraintStart_toStartOf="@+id/guideline24"
+        app:layout_constraintTop_toTopOf="@+id/game_play_scoreset_tv"
+        app:srcCompat="@drawable/minus" />
+
+    <ImageButton
+        android:id="@+id/game_play_scoreminus_btn2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/green_light_epic"
+        android:padding="15dp"
+        android:scaleType="centerInside"
+        android:tint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/game_play_scoreset_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline30"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/game_play_scoreset_tv"
+        app:layout_constraintTop_toTopOf="@+id/game_play_scoreset_tv"
+        app:srcCompat="@drawable/plus" />
+
+    <ImageButton
+        android:id="@+id/game_play_switchplayerright_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/green_light_epic"
+        android:scaleType="centerInside"
+        android:tint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/game_play_scoreset_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/game_play_scoreset_btn"
+        app:layout_constraintTop_toTopOf="@+id/game_play_scoreset_btn"
+        app:srcCompat="@drawable/arrow_right" />
+
+    <Button
+        android:id="@+id/game_play_scoreset_btn"
+        style="@style/DiscotronBTNStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        app:backgroundTint="@color/button_alt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/game_play_switchplayerright_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/game_play_switchplayerleft_btn"
+        app:layout_constraintTop_toTopOf="@+id/guideline28"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <NumberPicker
+        android:id="@+id/game_play_playerselect_np"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline24"
+        app:layout_constraintStart_toStartOf="@+id/guideline29"
+        app:layout_constraintTop_toBottomOf="@+id/game_play_holeinfo_tv"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
