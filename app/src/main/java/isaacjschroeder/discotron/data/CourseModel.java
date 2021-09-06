@@ -40,4 +40,6 @@ public class CourseModel {
         }
         return null;
     }
+
+    //should add a set hole function for easy updating and putting instead of doing it all externally
 }

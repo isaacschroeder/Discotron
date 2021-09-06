@@ -57,7 +57,7 @@ public class CourseAddActivity extends AppCompatActivity {
 
 
     private static final int MAX_HOLE_COUNT = 100;
-    private static final int MAX_PAR_VALUE = 10;
+    public static final int MAX_PAR_VALUE = 10;
     private static final int INITIAL_HOLE_COUNT = 18;
     private static final int INITIAL_PAR_VALUE = 3;
 

@@ -139,7 +139,7 @@ public class GameCreateActivity extends AppCompatActivity {
                         game.scoreCards.add(scoreCard);
                     }
 
-                    games.put(game);        //finally, put the game in the db - does this add everything else?
+                    games.put(game);        //finally, put the game in the db - does this add everything else? I guess it does!
 
                     //Need to launch game from main menu, so return the game id and shiz to the main menu
                     SharedPreferencesManager.write(SharedPreferencesManager.GAME_IN_PROGRESS_ID, game.id);

@@ -51,7 +51,7 @@ public class ScoreBoardView extends LinearLayout {
         //Create player entries
         if (scoreCards != null) {
             for (int i = 0; i < scoreCards.size(); i++) {
-                ScoreCardView scoreCard = new ScoreCardView(context, ScoreCardView.PLAYER_SCORE_COLUMN, scoreCards.get(i).player.getTarget().name, course, scoreCards.get(i), null);
+                ScoreCardView scoreCard = new ScoreCardView(context, ScoreCardView.PLAYER_SCORE_COLUMN, scoreCards.get(i).player.getTarget().name, course, scoreCards.get(i), game);
                 this.addView(scoreCard);
                 playerScoreCardViews.add(scoreCard); //NEWFIX//is this necessary?
             }
@@ -59,10 +59,10 @@ public class ScoreBoardView extends LinearLayout {
     }
 
 
-    public void updateScoreEntry(long playerID, int holeNumber, int par, int score)
+    public void updateScoreEntry(long scoreCardID, int holeNumber, int par, int score)
     {
         for (int i = 0; i < playerScoreCardViews.size(); i++) {
-            if (playerScoreCardViews.get(i).getPlayerID() == playerID) {
+            if (playerScoreCardViews.get(i).getScoreCardID() == scoreCardID) {
                 playerScoreCardViews.get(i).updatePlayerScoreText(holeNumber, par, score);
                 return;
             }

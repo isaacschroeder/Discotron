@@ -5,6 +5,7 @@ import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.relation.ToMany;
 import io.objectbox.relation.ToOne;
+import isaacjschroeder.discotron.ObjectBox;
 
 
 @Entity
@@ -45,6 +46,33 @@ public class GameModel {
                 return matchPar;
         }
         return null;
+    }
+
+    //to set specific match par based on its hole number
+    public void setMatchPar(int number, int matchPar) {
+        for (MatchParModel mp : matchPars) {
+            if (mp.getNumber() == number) {
+                mp.setPar(matchPar);
+                ObjectBox.get().boxFor(MatchParModel.class).put(mp);
+            }
+        }
+    }
+
+    //give a scorecard id and a score and will assign to player's scorecard
+    public void setPlayerScore(long id, int number, int score) {
+        for (ScoreCardModel scoreCard: scoreCards) {
+            if (scoreCard.id == id)
+                scoreCard.setScore(number, score);
+        }
+    }
+
+    //based on playernames
+    public long getScoreCardIDFromPlayerName(String name) {
+        for (ScoreCardModel scoreCard: scoreCards) {
+            if (scoreCard.player.getTarget().name == name)
+                return scoreCard.id;
+        }
+        return ObjectBox.INVALID_ID;
     }
 }
 

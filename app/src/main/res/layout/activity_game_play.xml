@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.62" />
+        app:layout_constraintGuide_percent="0.66" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline23"
@@ -76,10 +76,11 @@
         android:text="#"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/game_play_scoreminus_btn2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/game_play_scoreplus_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/game_play_scoreminus_btn"
-        tools:layout_editor_absoluteY="499dp" />
+        app:layout_constraintTop_toBottomOf="@+id/game_play_scoreset_btn" />
 
     <ImageButton
         android:id="@+id/game_play_editmatchpar_btn"
@@ -87,15 +88,15 @@
         android:layout_height="40dp"
         android:background="@color/green_light_epic"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/game_play_switchplayerleft_btn"
-        app:layout_constraintEnd_toStartOf="@+id/game_play_switchplayerleft_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/game_play_holeswitchleft_btn"
+        app:layout_constraintEnd_toStartOf="@+id/game_play_holeswitchleft_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/game_play_holeinfo_tv"
-        app:layout_constraintTop_toTopOf="@+id/game_play_switchplayerleft_btn"
+        app:layout_constraintTop_toTopOf="@+id/game_play_holeswitchleft_btn"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <ImageButton
-        android:id="@+id/game_play_switchplayerleft_btn"
+        android:id="@+id/game_play_holeswitchleft_btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@color/green_light_epic"
@@ -123,7 +124,7 @@
         app:srcCompat="@drawable/minus" />
 
     <ImageButton
-        android:id="@+id/game_play_scoreminus_btn2"
+        android:id="@+id/game_play_scoreplus_btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@color/green_light_epic"
@@ -139,7 +140,7 @@
         app:srcCompat="@drawable/plus" />
 
     <ImageButton
-        android:id="@+id/game_play_switchplayerright_btn"
+        android:id="@+id/game_play_holeswitchright_btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@color/green_light_epic"
@@ -160,15 +161,15 @@
         android:text="Set"
         app:backgroundTint="@color/button_alt"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/game_play_switchplayerright_btn"
+        app:layout_constraintEnd_toStartOf="@+id/game_play_holeswitchright_btn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/game_play_switchplayerleft_btn"
+        app:layout_constraintStart_toEndOf="@+id/game_play_holeswitchleft_btn"
         app:layout_constraintTop_toTopOf="@+id/guideline28"
         app:layout_constraintVertical_bias="0.1" />
 
     <NumberPicker
         android:id="@+id/game_play_playerselect_np"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"

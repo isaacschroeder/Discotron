@@ -7,6 +7,7 @@ import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.relation.ToMany;
 import io.objectbox.relation.ToOne;
+import isaacjschroeder.discotron.ObjectBox;
 
 @Entity
 public class ScoreCardModel {
@@ -27,5 +28,14 @@ public class ScoreCardModel {
                 return score;
         }
         return null;
+    }
+
+    public void setScore(int holeNumber, int score) {
+        for (ScoreModel s : scores) {
+            if (s.getHoleNumber() == holeNumber) {
+                s.setScore(score);
+                ObjectBox.get().boxFor(ScoreModel.class).put(s);
+            }
+        }
     }
 }

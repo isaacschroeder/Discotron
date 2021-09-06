@@ -1,6 +1,7 @@
 package isaacjschroeder.discotron.customviews;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -20,7 +21,7 @@ public class ScoreCardView extends LinearLayout {
     private TextView headerTV;
     private List<TextView> scoreTVs;
 
-    private long playerID;                             //bad fix******* -1 if not a player scorecard should have different classes for types of scorecard columns
+    private long scoreCardID;                             //bad fix******* -1 if not a player scorecard should have different classes for types of scorecard columns
 
     public static final int HOLE_NUMBER_COLUMN = 0;
     public static final int HOLE_PAR_COLUMN = 1;
@@ -36,7 +37,7 @@ public class ScoreCardView extends LinearLayout {
         init(context, columnType, header, course, playerScore, game);
     }
 
-    public long getPlayerID() {return playerID;}              //BAD FIX FOR IDENTIFYING PLAYER COLUMNS
+    public long getScoreCardID() {return scoreCardID;}              //BAD FIX FOR IDENTIFYING PLAYER COLUMNS
 
     public void updateParText(int holeNumber, int par) {
         scoreTVs.get(holeNumber).setText(String.valueOf(par));
@@ -69,9 +70,9 @@ public class ScoreCardView extends LinearLayout {
 
         //BAD FIX FOR IDENTIFYING PLAYER COLUMNS
         if (columnType == PLAYER_SCORE_COLUMN)
-            playerID = playerScore.player.getTargetId();
+            scoreCardID = playerScore.id;
         else
-            playerID = -1;
+            scoreCardID = -1;
         //BAD FIX FOR IDENTIFYING PLAYER COLUMNS
 
         //Setup linear layout
@@ -161,5 +162,7 @@ public class ScoreCardView extends LinearLayout {
             scoreTV.setBackgroundColor(getResources().getColor(R.color.double_bogey));
         else if (matchPar - score < -2)
             scoreTV.setBackgroundColor(getResources().getColor(R.color.triple_bogey_or_worse));
+        else
+            scoreTV.setBackgroundColor(Color.TRANSPARENT);
     }
 }
