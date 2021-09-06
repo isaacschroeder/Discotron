@@ -75,6 +75,9 @@ public class ScoreBoardView extends LinearLayout {
 
     public void updateMatchParEntry(int holeNumber, int defaultPar, int matchPar) {
         parScoreCardView.updateMatchParText(holeNumber, defaultPar, matchPar);
+        for (int i = 0; i < playerScoreCardViews.size(); i++) {
+            playerScoreCardViews.get(i).calcPlusMinus();
+        }
     }
 
     //add player, should probably just remake the whole view, but ideally could remove or add columns

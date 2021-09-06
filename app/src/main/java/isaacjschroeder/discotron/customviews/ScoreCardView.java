@@ -21,7 +21,7 @@ public class ScoreCardView extends LinearLayout {
 
     private TextView headerTV;
     //private TextView totalsTV;
-    //private TextView plusMinusTV;
+    private TextView plusMinusTV;
     private List<TextView> scoreTVs;
 
     private GameModel game;
@@ -79,6 +79,7 @@ public class ScoreCardView extends LinearLayout {
             //Color based on ranges
             applyColorRulesToScore(score, par, scoreTVs.get(holeNumber));
             //totalsTV.setText(String.valueOf(playerScore.calcTotalScore()));
+            calcPlusMinus();
         }
     }
 
@@ -133,6 +134,26 @@ public class ScoreCardView extends LinearLayout {
 //            totalsTV.setText(String.valueOf(game.calcTotalMatchPar()));
 //        else
 //            totalsTV.setText(String.valueOf(playerScore.calcTotalScore()));
+
+        plusMinusTV = new TextView(context);
+        plusMinusTV.setLayoutParams(scoreTVParams);
+        plusMinusTV.setTextColor(getResources().getColor(R.color.black));
+        plusMinusTV.setTextSize(TEXT_SIZE);
+        plusMinusTV.setSingleLine(true);
+        FrameLayout frameLayout = new FrameLayout(context);
+        frameLayout.setBackgroundColor(getResources().getColor(R.color.grey));
+        frameLayout.addView(plusMinusTV);
+        this.addView(frameLayout);
+
+        if (columnType == HOLE_NUMBER_COLUMN)
+            plusMinusTV.setText("+/-");
+        else if (columnType == HOLE_PAR_COLUMN)
+            plusMinusTV.setText("e");
+        else if (columnType == HOLE_MATCH_PAR_COLUMN)
+            plusMinusTV.setText("e");
+        else {
+            calcPlusMinus();
+        }
 //        //New rows
 
 
@@ -206,5 +227,20 @@ public class ScoreCardView extends LinearLayout {
             scoreTV.setBackgroundColor(getResources().getColor(R.color.triple_bogey_or_worse));
         else
             scoreTV.setBackgroundColor(Color.TRANSPARENT);
+    }
+
+    public void calcPlusMinus() {
+        int diff = 0;
+        for (int i = 1; i <= playerScore.scores.size(); i++) {
+            if (playerScore.getScore(i).getScore() != -1)
+                diff += (playerScore.getScore(i).getScore() - game.getMatchPar(i).getPar());
+        }
+
+        if (diff == 0)
+            plusMinusTV.setText("e");
+        else if (diff > 0)
+            plusMinusTV.setText("+" + diff);
+        else
+            plusMinusTV.setText("" + diff);
     }
 }
