@@ -41,5 +41,12 @@ public class CourseModel {
         return null;
     }
 
+    public int calcTotalDefaultPar() {
+        int total = 0;
+        for (HoleModel hole : holes)
+            total += hole.getPar();
+        return total;
+    }
+
     //should add a set hole function for easy updating and putting instead of doing it all externally
 }

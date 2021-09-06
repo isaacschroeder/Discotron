@@ -38,4 +38,13 @@ public class ScoreCardModel {
             }
         }
     }
+
+    public int calcTotalScore() {
+        int total = 0;
+        for (ScoreModel s : scores) {
+            if (s.getScore() != -1)
+                total += s.getScore();
+        }
+        return total;
+    }
 }

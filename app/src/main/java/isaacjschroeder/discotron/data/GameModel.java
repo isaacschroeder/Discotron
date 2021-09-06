@@ -74,5 +74,12 @@ public class GameModel {
         }
         return ObjectBox.INVALID_ID;
     }
+
+    public int calcTotalMatchPar() {
+        int total = 0;
+        for (MatchParModel mp : matchPars)
+            total += mp.getPar();
+        return total;
+    }
 }
 

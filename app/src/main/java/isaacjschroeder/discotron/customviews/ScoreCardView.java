@@ -2,6 +2,7 @@ package isaacjschroeder.discotron.customviews;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -19,7 +20,13 @@ import isaacjschroeder.discotron.data.ScoreCardModel;
 public class ScoreCardView extends LinearLayout {
 
     private TextView headerTV;
+    //private TextView totalsTV;
+    //private TextView plusMinusTV;
     private List<TextView> scoreTVs;
+
+    private GameModel game;
+    private CourseModel course;
+    private ScoreCardModel playerScore;
 
     private long scoreCardID;                             //bad fix******* -1 if not a player scorecard should have different classes for types of scorecard columns
 
@@ -29,11 +36,18 @@ public class ScoreCardView extends LinearLayout {
     public static final int PLAYER_SCORE_COLUMN = 3;
 
     private static final int TEXT_SIZE = 24;
+    private static final int HEADER_TEXT_SIZE = 28;
 
     private static final String SCORE_NOT_SET_SYMBOL = "~";
 
     public ScoreCardView(Context context, int columnType, String header, CourseModel course, ScoreCardModel playerScore, GameModel game) {
         super(context);
+
+        //USE THESE FOR THINGS BC WHY NOT FOOL?
+        this.game = game;
+        this.course = course;
+        this.playerScore = playerScore;
+
         init(context, columnType, header, course, playerScore, game);
     }
 
@@ -41,6 +55,7 @@ public class ScoreCardView extends LinearLayout {
 
     public void updateParText(int holeNumber, int par) {
         scoreTVs.get(holeNumber).setText(String.valueOf(par));
+        //totalsTV.setText(String.valueOf(course.calcTotalDefaultPar()));
     }
 
     //if default par != match par, then update text
@@ -49,6 +64,8 @@ public class ScoreCardView extends LinearLayout {
             scoreTVs.get(holeNumber).setText(String.valueOf(matchPar) + " (" + String.valueOf(defaultPar) + ")");
         else
             scoreTVs.get(holeNumber).setText(String.valueOf(defaultPar));
+
+        //totalsTV.setText(String.valueOf(game.calcTotalMatchPar()));
     }
 
     //make sure color rules apply
@@ -61,12 +78,13 @@ public class ScoreCardView extends LinearLayout {
             scoreTVs.get(holeNumber).setText(String.valueOf(score));
             //Color based on ranges
             applyColorRulesToScore(score, par, scoreTVs.get(holeNumber));
+            //totalsTV.setText(String.valueOf(playerScore.calcTotalScore()));
         }
     }
 
 
     //CHANGE ORIENTATION?
-    private void init(Context context, int columnType , String header, CourseModel course, ScoreCardModel playerScore, GameModel game) {
+    private void init(Context context, int columnType, String header, CourseModel course, ScoreCardModel playerScore, GameModel game) {
 
         //BAD FIX FOR IDENTIFYING PLAYER COLUMNS
         if (columnType == PLAYER_SCORE_COLUMN)
@@ -87,13 +105,36 @@ public class ScoreCardView extends LinearLayout {
         headerTV.setPadding(20,20,20,20);
         headerTV.setTextColor(getResources().getColor(R.color.black));
         headerTV.setBackgroundColor(getResources().getColor(R.color.grey));
-        headerTV.setTextSize(TEXT_SIZE);
+        headerTV.setTextSize(HEADER_TEXT_SIZE);
         headerTV.setSingleLine(true);
         this.addView(headerTV);
+
 
         //For setting score tvs behavior in their frame layout cells
         FrameLayout.LayoutParams scoreTVParams = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
         scoreTVParams.setMargins(10,10,10,10);
+
+//        //New rows
+//        totalsTV = new TextView(context);
+//        totalsTV.setLayoutParams(scoreTVParams);
+//        totalsTV.setTextColor(getResources().getColor(R.color.black));
+//        totalsTV.setTextSize(TEXT_SIZE);
+//        totalsTV.setSingleLine(true);
+//        FrameLayout frameLayout = new FrameLayout(context);
+//        frameLayout.setBackgroundColor(getResources().getColor(R.color.white));
+//        frameLayout.addView(totalsTV);
+//        this.addView(frameLayout);
+//
+//        if (columnType == HOLE_NUMBER_COLUMN)
+//            totalsTV.setText("Total");
+//        else if (columnType == HOLE_PAR_COLUMN)
+//            totalsTV.setText(String.valueOf(course.calcTotalDefaultPar()));
+//        else if (columnType == HOLE_MATCH_PAR_COLUMN)
+//            totalsTV.setText(String.valueOf(game.calcTotalMatchPar()));
+//        else
+//            totalsTV.setText(String.valueOf(playerScore.calcTotalScore()));
+//        //New rows
+
 
         scoreTVs = new ArrayList<TextView>();
 
@@ -101,8 +142,9 @@ public class ScoreCardView extends LinearLayout {
         for (int i = 0; i < course.holes.size(); i++) {
             TextView score = new TextView(context);
             score.setLayoutParams(scoreTVParams);
-            if (columnType == HOLE_NUMBER_COLUMN)                                //just a holecount scorecard
+            if (columnType == HOLE_NUMBER_COLUMN) {                               //just a holecount scorecard
                 score.setText(String.valueOf(i + 1));
+            }
             else if (columnType == HOLE_PAR_COLUMN) {                            //just a par scorecard
                 score.setText(String.valueOf(course.getHole(i + 1).getPar()));
             }
