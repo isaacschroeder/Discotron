@@ -95,7 +95,8 @@ public class GamePlayActivity extends AppCompatActivity {
         playerSelectNP.setMinValue(0);
         playerSelectNP.setMaxValue(playerCount -1);
         playerSelectNP.setDisplayedValues(playerNames);
-        playerSelectNP.setTextSize(PLAYER_SELECTOR_TEXT_SIZE);
+        //playerSelectNP.setTextSize(PLAYER_SELECTOR_TEXT_SIZE); //NOT COMPATIBLE WITH OLDER VERSIONS
+        playerSelectNP.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //To take away focus
 
         //Init textviews and scoreset
         updateHoleInfo();

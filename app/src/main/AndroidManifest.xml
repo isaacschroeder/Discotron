@@ -10,17 +10,29 @@
         android:roundIcon="@mipmap/discotron_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Discotron">
-        <activity android:name=".controllers.GameDetailsActivity"></activity>
-        <activity android:name=".controllers.GameCreateActivity" />
-        <activity android:name=".controllers.GamePlayActivity" />
-        <activity android:name=".controllers.GameListActivity" />
-        <activity android:name=".controllers.CourseDetailsActivity" />
-        <activity android:name=".controllers.CourseAddActivity" />
-        <activity android:name=".controllers.CourseListActivity" />
-        <activity android:name=".controllers.PlayerDetailsActivity" />
-        <activity android:name=".controllers.PlayerAddActivity" />
-        <activity android:name=".controllers.PlayersListActivity" />
-        <activity android:name=".controllers.MainMenuActivity">
+        <activity android:name=".controllers.GameDetailsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".controllers.GameCreateActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controllers.GamePlayActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controllers.GameListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controllers.CourseDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controllers.CourseAddActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controllers.CourseListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controllers.PlayerDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controllers.PlayerAddActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controllers.PlayersListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".controllers.MainMenuActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
