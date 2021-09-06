@@ -93,6 +93,9 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        //for now, disable statistics button
+        statsBTN.setEnabled(false);
     }
 
 
