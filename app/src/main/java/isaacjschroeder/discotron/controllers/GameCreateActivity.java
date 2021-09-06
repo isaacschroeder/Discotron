@@ -174,8 +174,9 @@ public class GameCreateActivity extends AppCompatActivity {
             for (long id : ids) {
                 PlayerModel p = ObjectBox.get().boxFor(PlayerModel.class).get(id);
                 players.add(p);
-                playerNamesTV.setText(playerNamesTV.getText().toString() + " " + p.name);
+                //playerNamesTV.setText(playerNamesTV.getText().toString() + " " + p.name);
             }
+            playerNamesTV.setText("Players: " + players.size()); //for now just mention number of players
         }
     }
 

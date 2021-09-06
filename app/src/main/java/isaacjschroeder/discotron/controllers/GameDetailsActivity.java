@@ -46,10 +46,10 @@ public class GameDetailsActivity extends AppCompatActivity {
 
         gameNameTV.setText("Name: " + game.name);
         courseNameTV.setText("Course: " + game.course.getTarget().name);
-        playerNamesTV.setText("Players:");
-        for (int x = 0; x < game.scoreCards.size(); x++) {
-            playerNamesTV.setText(playerNamesTV.getText().toString() + " " + game.scoreCards.get(x).player.getTarget().name);
-        }
+        playerNamesTV.setText("Players: " + game.scoreCards.size()); //For now just list number of players
+//        for (int x = 0; x < game.scoreCards.size(); x++) {
+//            playerNamesTV.setText(playerNamesTV.getText().toString() + " " + game.scoreCards.get(x).player.getTarget().name);
+//        }
 
         scoreBoard = new ScoreBoardView(this, game);
         hscroll.addView(scoreBoard);
