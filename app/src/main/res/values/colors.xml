@@ -16,12 +16,12 @@
 
     <color name="button_alt">#00BCD4</color>
 
-    <color name="ace">#BA68C8</color>
-    <color name="albatross_or_better">#F06292</color>
-    <color name="eagle">#4DD0E1</color>
-    <color name="birdie">#AED581</color>
-    <color name="bogey">#FF8A65</color>
-    <color name="double_bogey">#F64D4D</color>
-    <color name="triple_bogey_or_worse">#FA0000</color>
+    <color name="ace">#FFCA28</color>
+    <color name="albatross_or_better">#FFEE58</color>
+    <color name="eagle">#66BB6A</color>
+    <color name="birdie">#26C6DA</color>
+    <color name="bogey">#FF7043</color>
+    <color name="double_bogey">#EF5350</color>
+    <color name="triple_bogey_or_worse">#EC407A</color>
 
 </resources>
